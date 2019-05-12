@@ -1,0 +1,24 @@
+﻿<Window x:Class="CarteAuTresorWindow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarteAuTresorWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="0,0,-4.8,-17.2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="163*"/>
+            <ColumnDefinition Width="637*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Carte au Trésor" HorizontalAlignment="Left" Margin="48,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.684,-2.631" Height="28" Width="115"/>
+        <TextBlock Name="textBlock1"  HorizontalAlignment="Left" Margin="48,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="172" Width="584"/>
+        <Button Content="Cliquez pour le fichier de configuration" HorizontalAlignment="Left" Margin="42,48,0,0" VerticalAlignment="Top" Width="225" Height="23" Click="Button_Click" Grid.ColumnSpan="2"/>
+        <TextBox Name="textBox1" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="119.8,48,0,0" TextWrapping="Wrap" Text="Fichier .txt de configuration" VerticalAlignment="Top" Width="481" TextChanged="TextBox_TextChanged"/>
+        <Button Content="Lancer la chasse au trésor" HorizontalAlignment="Left" Margin="21.8,103,0,0" VerticalAlignment="Top" Width="225" Click="Button_Click_1" Grid.Column="1"/>
+        <TextBlock Name="textBox2" Grid.Column="1" HorizontalAlignment="Left" Margin="119.8,337,0,0" TextWrapping="Wrap" Text="Chemin de sortie" VerticalAlignment="Top" Height="20" Width="434"/>
+        <Button Content="Configurer chemin de sortie" HorizontalAlignment="Left" Margin="42,337,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" Click="Button_Click_2"/>
+        <Button Content="Ecrire" HorizontalAlignment="Left" Margin="108,382,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="Button_Click_3"/>
+
+    </Grid>
+</Window>
