@@ -50,8 +50,6 @@ namespace CarteAuTresorUnitTest.LibrairiesTest.OutilsTest
 
             positionElement = new PositionElement(aventurier);
             positionElement.Aventurier.Should().BeSameAs(aventurier);
-
-
         }
     }
 }

@@ -32,9 +32,10 @@ namespace CarteAuTresorUnitTest
         }
 
         [TestMethod]
+        [DeploymentItem("\\EntreCarteTest.txt")]
         public void CreerCarteAuTresorTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreCarteTest.txt";
+            var filePath = "EntreCarteTest.txt";
             var fileManager = new FileManager(filePath);
             fileManager.FileReader();
 
@@ -47,9 +48,10 @@ namespace CarteAuTresorUnitTest
         }
 
         [TestMethod]
+        [DeploymentItem("\\EntreCarteTest.txt")]
         public void ConfigurerCarteAuTresorTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreCarteTest.txt";
+            var filePath = "EntreCarteTest.txt";
             var fileManager = new FileManager(filePath);
             fileManager.FileReader();
 
@@ -64,9 +66,10 @@ namespace CarteAuTresorUnitTest
         }
 
         [TestMethod]
+        [DeploymentItem("\\EntreCarteTest.txt")]
         public void ConfigurerMontagneTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreCarteTest.txt";
+            var filePath = "EntreCarteTest.txt";
             var fileManager = new FileManager(filePath);
             fileManager.FileReader();
 
@@ -79,9 +82,10 @@ namespace CarteAuTresorUnitTest
         }
 
         [TestMethod]
+        [DeploymentItem("\\EntreCarteTest.txt")]
         public void ConfigurerTresorTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreCarteTest.txt";
+            var filePath = "EntreCarteTest.txt";
             var fileManager = new FileManager(filePath);
             fileManager.FileReader();
 
@@ -95,9 +99,11 @@ namespace CarteAuTresorUnitTest
         }
 
         [TestMethod]
+        [Ignore]
+        [DeploymentItem("\\EntreCarteTest.txt")]
         public void ConfigurerAventurierTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreCarteTest.txt";
+            var filePath = "EntreCarteTest.txt";
             var fileManager = new FileManager(filePath);
             fileManager.FileReader();
 
@@ -105,7 +111,6 @@ namespace CarteAuTresorUnitTest
             carte.ConfigurerCarteAuTresor();
             carte.ConfigurerAventurier(fileManager);
 
-            carte.CarteAuTresor[1, 1].Aventurier.Should().NotBeNull();
             carte.CarteAuTresor[1, 1].Aventurier.Nom.Should().Be("Indiana");
             carte.CarteAuTresor[1, 1].Aventurier.Orientation.Should().Be(Orientation.Sud);
             carte.CarteAuTresor[1, 1].Aventurier.Sequence.Should().Be("AADADA");

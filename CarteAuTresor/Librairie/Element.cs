@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarteAuTresor.Librairie
 {
-    public class Element
+    public abstract class Element
     {
         /// <summary>
         /// 
@@ -30,10 +30,6 @@ namespace CarteAuTresor.Librairie
             get
             {
                 return this.position;
-            }
-            set
-            {
-                this.position = value;
             }
         }
     }
