@@ -13,5 +13,10 @@ namespace CarteAuTresor.Librairie
         {
 
         }
+
+        public override string TypeOf()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

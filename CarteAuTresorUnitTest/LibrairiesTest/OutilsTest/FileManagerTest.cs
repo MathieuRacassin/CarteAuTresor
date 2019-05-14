@@ -12,19 +12,6 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
     {
         [TestMethod]
         [DeploymentItem("\\EntreFileManagerTest.txt")]
-        public void ConstructorTest()
-        {
-            var fileName = "EntreFileManagerTest.txt";
-            var fileManager = new FileManager(fileName);
-
-
-            fileManager.FilePath.Should().NotBeNull();
-            fileManager.ConfigurationTable.Should().NotBeNull();
-            fileManager.RowCount.Should().Be(3);
-        }
-
-        [TestMethod]
-        [DeploymentItem("\\EntreFileManagerTest.txt")]
         public void FileReader_should_read_each_line()
         {
             var filePath = "EntreFileManagerTest.txt";
@@ -61,24 +48,6 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
             fileManager.ConfigurationTable[2].Row[1].Should().Be(splitLine[1]);
             fileManager.ConfigurationTable[2].Row[2].Should().Be(splitLine[2]);
             fileManager.ConfigurationTable[2].Row[3].Should().Be(splitLine[3]);
-        }
-
-        [TestMethod]
-        public void ExtraireStringTest()
-        {
-            string c = "Test-Extraire-String";
-            var characterArray = new List<char>(c.ToCharArray());
-
-            var result = FileManager.ExtractString(characterArray);
-
-            string[] value = { "Test", "Extraire", "String" };
-
-            result.Count.Should().Be(3);
-            result[0].Should().Be(value[0]);
-
-            result[1].Should().Be(value[1]);
-
-            result[2].Should().Be(value[2]);
         }
 
 

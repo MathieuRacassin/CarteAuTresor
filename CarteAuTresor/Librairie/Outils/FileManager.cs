@@ -34,19 +34,6 @@ namespace CarteAuTresor.Librairie
             this.filePath = new FileInfo(filePath);
 
             this.rowCount = 0;
-
-            using (Stream stream = new FileStream(this.filePath.FullName, FileMode.Open))
-            {
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        this.rowCount++;
-                    }
-                }
-            }
-
         }
 
         /// <summary>
@@ -64,10 +51,6 @@ namespace CarteAuTresor.Librairie
                 {
                     return null;
                 }
-            }
-            set
-            {
-                this.filePath = value;
             }
         }
 
@@ -162,36 +145,6 @@ namespace CarteAuTresor.Librairie
         //    }
         //    return this.configurationTable;
         //}
-
-        /// <summary>
-        /// Utilitaire permettant de reconstruire les informations extraite du fichier de configuration
-        /// et de les renvoyer sous forme de liste. Connaissant la sémantique du ficheir texte d'entré.
-        /// </summary>
-        /// <param name="charListe">Liste de caractère</param>
-        /// <returns>Liste de chaîne de caractère</returns>
-        public static List<string> ExtractString(List<char> charListe)
-        {
-            var listeString = new List<string>();
-
-            string temp = string.Empty;
-            foreach (char caractere in charListe)
-            {
-                // 0x2d correspond à - 
-                if (caractere == 0x2d)
-                {
-                    listeString.Add(temp);
-                    temp = string.Empty;
-                    continue;
-                }
-                else
-                {
-                    temp += caractere.ToString();
-                }
-            }
-            listeString.Add(temp);
-
-            return listeString;
-        }
 
         public static void FileTextWriter(List<List<string>> fileToWrite, string cheminDuFichier)
         {

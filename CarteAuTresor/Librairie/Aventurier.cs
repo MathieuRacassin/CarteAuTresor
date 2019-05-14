@@ -11,7 +11,7 @@ namespace CarteAuTresor.Librairie
     /// <summary>
     /// Représente un aventurier
     /// </summary>
-    public class Aventurier
+    public class Aventurier : Element
     { 
         /// <summary>
         /// Le nom de l'avenutier
@@ -52,7 +52,7 @@ namespace CarteAuTresor.Librairie
         /// <param name="sequence">Sequence de mouvement de l'aventurier</param>
         /// <param name="nombreTresor">Nombre de trésor ramassé</param>
         /// <param name="nombreTour">Nombre de tour</param>
-        public Aventurier(PositionAventurier position, string nom, string orientation, string sequence, int nombreTresor, int nombreTour)
+        public Aventurier(PositionAventurier position, string nom, string orientation, string sequence, int nombreTresor, int nombreTour) : base(position)
         {
             this.nom = nom;
             this.position = position;
@@ -226,11 +226,10 @@ namespace CarteAuTresor.Librairie
                         {
                             if(
                                 element.Tresor.NombreTresor > 0 &&
-                                element.Tresor.Position.X == this.Position.X && 
-                                element.Tresor.Position.Y ==this.Position.Y)
+                                element.Tresor.HasSamePosition(this.position))
                             {
-                                element.Tresor.NombreTresor--;
-                                this.NombreTresor++;
+                                element.Tresor.LostOneTresor();
+                                WinOneTresor();
                             }
                         }
                     }
@@ -296,5 +295,14 @@ namespace CarteAuTresor.Librairie
             }
         }
 
+        public void WinOneTresor()
+        {
+            this.nombreTour++;
+        }
+
+        public override string TypeOf()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

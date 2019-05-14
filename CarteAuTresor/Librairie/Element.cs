@@ -8,29 +8,19 @@ namespace CarteAuTresor.Librairie
 {
     public abstract class Element
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private Position position;
+        private readonly Position position;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
         public Element(Position position)
         {
             this.position = position;
         }
+        
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Position Position
+        public bool HasSamePosition(Position position)
         {
-            get
-            {
-                return this.position;
-            }
+            return this.position.Equals(position);
         }
+
+        public abstract string TypeOf();
     }
 }

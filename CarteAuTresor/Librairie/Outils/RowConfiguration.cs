@@ -14,14 +14,13 @@ namespace CarteAuTresor.Librairie.Outils
         /// <summary>
         /// Contient tous les caractères d'une ligne
         /// </summary>
-        private List<string> row;
+        private readonly List<string> row = new List<string>();
 
         /// <summary>
         /// Instancie une ligne de configuration
         /// </summary>
         public RowConfiguration()
         {
-            this.row = new List<string>();
         }
 
         /// <summary>
@@ -31,14 +30,7 @@ namespace CarteAuTresor.Librairie.Outils
         {
             get
             {
-                if(this.row == null)
-                {
-                    return new List<string>();
-                }
-                else
-                {
-                    return this.row;
-                }
+                return this.row;
             }
         }
     }

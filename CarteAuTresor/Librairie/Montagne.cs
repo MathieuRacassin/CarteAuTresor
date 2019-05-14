@@ -12,5 +12,10 @@ namespace CarteAuTresor.Librairie
             :base(position)
         {
         }
+
+        public override string TypeOf()
+        {
+            return TypeOfElement.Montagne;
+        }
     }
 }

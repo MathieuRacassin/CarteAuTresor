@@ -37,19 +37,19 @@ namespace CarteAuTresor.Librairie.Outils
         {
             if (orientation == Orientation.Est && this.Xmax >= this.X + 1)
             {
-                this.X = this.X + 1;
+                this.X += 1;
             }
             if (orientation == Orientation.Nord && 0 <= this.Y - 1)
             {
-                this.Y = this.Y - 1;
+                this.Y -= 1;
             }
             if (orientation == Orientation.Sud && this.Ymax >= this.Y + 1)
             {
-                this.Y = this.Y + 1;
+                this.Y += 1;
             }
             if (orientation == Orientation.Ouest && 0 <= this.X - 1)
             {
-                this.X = this.X - 1;
+                this.X -= 1;
             }
         }
 
@@ -61,19 +61,19 @@ namespace CarteAuTresor.Librairie.Outils
         {
             if (orientation == Orientation.Est && 0 <= this.X - 1)
             {
-                this.X = this.X - 1;
+                this.X -= 1;
             }
             if (orientation == Orientation.Nord && this.Ymax >= this.Y + 1)
             {
-                this.Y = this.Y + 1;
+                this.Y += 1;
             }
             if (orientation == Orientation.Sud && 0 <= this.Y - 1)
             {
-                this.Y = this.Y - 1;
+                this.Y -= 1;
             }
             if (orientation == Orientation.Ouest && this.Xmax >= this.X + 1)
             {
-                this.X = this.X + 1;
+                this.X += 1;
             }
         }
 
@@ -85,19 +85,19 @@ namespace CarteAuTresor.Librairie.Outils
         {
             if (orientation == Orientation.Est && 0 <= this.Y - 1)
             {
-                this.Y = this.Y - 1;
+                this.Y -= 1;
             }
             if (orientation == Orientation.Nord && 0 <= this.X - 1)
             {
-                this.X = this.X - 1;
+                this.X -= 1;
             }
             if (orientation == Orientation.Sud && this.Xmax >= this.X + 1)
             {
-                this.X = this.X + 1;
+                this.X += 1;
             }
             if (orientation == Orientation.Ouest && this.Ymax >= this.Y + 1)
             {
-                this.Y = this.Y + 1;
+                this.Y += 1;
             }
         }
 
@@ -109,19 +109,19 @@ namespace CarteAuTresor.Librairie.Outils
         {
             if (orientation == Orientation.Est && this.Ymax >= this.Y + 1)
             {
-                this.Y = this.Y + 1;
+                this.Y += 1;
             }
             if (orientation == Orientation.Nord && this.Xmax >= this.X + 1)
             {
-                this.X = this.X + 1;
+                this.X += 1;
             }
             if (orientation == Orientation.Sud && 0 <= this.X - 1)
             {
-                this.X = this.X - 1;
+                this.X -= 1;
             }
             if (orientation == Orientation.Ouest && 0 <= this.Y - 1)
             {
-                this.Y = this.Y - 1;
+                this.Y -= 1;
             }
         }
     }

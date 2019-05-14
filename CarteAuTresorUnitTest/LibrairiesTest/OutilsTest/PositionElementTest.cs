@@ -22,20 +22,17 @@ namespace CarteAuTresorUnitTest.LibrairiesTest.OutilsTest
             var positionElement = new PositionElement(montagne);
 
             positionElement.IsMontagne.Should().BeTrue();
-            positionElement.Montagne.Position.X.Should().Be(position.X);
-            positionElement.Montagne.Position.Y.Should().Be(position.Y);
+            positionElement.Montagne.HasSamePosition(position).Should().BeTrue();
 
             positionElement = new PositionElement(position);
             positionElement.IsPlaine.Should().BeTrue();
-            positionElement.Plaine.Position.X.Should().Be(position.X);
-            positionElement.Plaine.Position.Y.Should().Be(position.Y);
+            positionElement.Plaine.HasSamePosition(position).Should().BeTrue();
 
             var tresor = new Tresor(position, 2);
 
             positionElement = new PositionElement(tresor);
             positionElement.IsTresor.Should().BeTrue();
-            positionElement.Tresor.Position.X.Should().Be(position.X);
-            positionElement.Tresor.Position.Y.Should().Be(position.Y);
+            positionElement.Tresor.HasSamePosition(position).Should().BeTrue();
             positionElement.Tresor.NombreTresor.Should().Be(2);
 
             var positionAventurier = new PositionAventurier()

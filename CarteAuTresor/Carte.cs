@@ -16,7 +16,7 @@ namespace CarteAuTresor
         /// <summary>
         /// Tableau de cases de la carte
         /// </summary>
-        private PositionElement[,] carteAuTresor;
+        private readonly PositionElement[,] carteAuTresor;
 
         /// <summary>
         /// Largeur de la carte
@@ -49,10 +49,6 @@ namespace CarteAuTresor
             get
             {
                 return this.carteAuTresor;
-            }
-            set
-            {
-                this.carteAuTresor = value;
             }
         }
 
@@ -217,62 +213,62 @@ namespace CarteAuTresor
             return new Carte(dimensionVerticale, dimensionHorizontale);
         }
 
-        /// <summary>
-        /// Ecrit les résultats de la chasse au trésor sous forme de liste
-        /// </summary>
-        /// <returns>Tableau de string</returns>
-        public List<List<string>> EcrireResultatChasseAuTresor()
-        {
-            var ecrireListe = new List<List<string>>();
+        ///// <summary>
+        ///// Ecrit les résultats de la chasse au trésor sous forme de liste
+        ///// </summary>
+        ///// <returns>Tableau de string</returns>
+        //public List<List<string>> EcrireResultatChasseAuTresor()
+        //{
+        //    var ecrireListe = new List<List<string>>();
 
-            //Sortie configuration de la carte
-            ecrireListe.Add(new List<string>()
-            {   "C",
-                this.axeHorizontale.ToString(),
-                this.axeVerticale.ToString()
-            });
+        //    //Sortie configuration de la carte
+        //    ecrireListe.Add(new List<string>()
+        //    {   "C",
+        //        this.axeHorizontale.ToString(),
+        //        this.axeVerticale.ToString()
+        //    });
 
-            // Une boucle pour ajouter les éléments de sortie dans l'ordre
-            foreach (var element in this.CarteAuTresor)
-            {
-                if (element.IsMontagne)
-                {
-                    ecrireListe.Add(new List<string>
-                    {   "M",
-                        element.Montagne.Position.X.ToString(),
-                        element.Montagne.Position.Y.ToString()
-                    });
-                }
-            }
+        //    // Une boucle pour ajouter les éléments de sortie dans l'ordre
+        //    foreach (var element in this.CarteAuTresor)
+        //    {
+        //        if (element.IsMontagne)
+        //        {
+        //            ecrireListe.Add(new List<string>
+        //            {   "M",
+        //                element.Montagne.Position.X.ToString(),
+        //                element.Montagne.Position.Y.ToString()
+        //            });
+        //        }
+        //    }
 
-            foreach (var element in this.CarteAuTresor)
-            {
-                if (element.IsTresor)
-                {
-                    ecrireListe.Add(new List<string>
-                    {   "T",
-                        element.Tresor.Position.X.ToString(),
-                        element.Tresor.Position.Y.ToString(),
-                        element.Tresor.NombreTresor.ToString()
-                    });
-                }
-            }
+        //    foreach (var element in this.CarteAuTresor)
+        //    {
+        //        if (element.IsTresor)
+        //        {
+        //            ecrireListe.Add(new List<string>
+        //            {   "T",
+        //                element.Tresor.Position.X.ToString(),
+        //                element.Tresor.Position.Y.ToString(),
+        //                element.Tresor.NombreTresor.ToString()
+        //            });
+        //        }
+        //    }
 
-            foreach (var element in this.CarteAuTresor)
-            {
-                if (element.Aventurier != null)
-                {
-                    ecrireListe.Add(new List<string>
-                    {   "A",
-                        element.Aventurier.Nom,
-                        element.Aventurier.Position.X.ToString(),
-                        element.Aventurier.Position.Y.ToString(),
-                        element.Aventurier.Orientation,
-                        element.Aventurier.NombreTresor.ToString()
-                    });
-                }
-            }
-            return ecrireListe;
-        }
+        //    foreach (var element in this.CarteAuTresor)
+        //    {
+        //        if (element.Aventurier != null)
+        //        {
+        //            ecrireListe.Add(new List<string>
+        //            {   "A",
+        //                element.Aventurier.Nom,
+        //                element.Aventurier.Position.X.ToString(),
+        //                element.Aventurier.Position.Y.ToString(),
+        //                element.Aventurier.Orientation,
+        //                element.Aventurier.NombreTresor.ToString()
+        //            });
+        //        }
+        //    }
+        //    return ecrireListe;
+        //}
     }
 }

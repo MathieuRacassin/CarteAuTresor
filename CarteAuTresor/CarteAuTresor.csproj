@@ -61,6 +61,7 @@
     <Compile Include="Librairie\Outils\Position.cs" />
     <Compile Include="Librairie\Tresor.cs" />
     <Compile Include="Librairie\Outils\Orientation.cs" />
+    <Compile Include="Librairie\TypeOfElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
