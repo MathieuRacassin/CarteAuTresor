@@ -11,9 +11,10 @@ namespace CarteAuTresorUnitTest
     public class CarteTest
     {
         [TestMethod]
+        [DeploymentItem("\\EntreCarteTest.txt")]
         public void ConstructeurTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreCarteTest.txt";
+            var filePath = "EntreCarteTest.txt";
             var fileManager = new FileManager(filePath);
             fileManager.FileReader();
 

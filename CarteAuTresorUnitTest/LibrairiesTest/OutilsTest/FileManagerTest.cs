@@ -3,6 +3,7 @@ using CarteAuTresor.Librairie;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CarteAuTresorUnitTest.LibrairiesTest
 {
@@ -10,10 +11,11 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
     public class FileManagerTest
     {
         [TestMethod]
+        [DeploymentItem("\\EntreFileManagerTest.txt")]
         public void ConstructorTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreFileManagerTest.txt";
-            var fileManager = new FileManager(filePath);
+            var fileName = "EntreFileManagerTest.txt";
+            var fileManager = new FileManager(fileName);
 
 
             fileManager.FilePath.Should().NotBeNull();
@@ -22,9 +24,10 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
         }
 
         [TestMethod]
-        public void FileReaderTest()
+        [DeploymentItem("\\EntreFileManagerTest.txt")]
+        public void FileReader_should_read_each_line()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\EntreFileManagerTest.txt";
+            var filePath = "EntreFileManagerTest.txt";
             var fileManager = new FileManager(filePath);
 
             var lineCount = fileManager.RowCount;
@@ -32,39 +35,32 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
             fileManager.FileReader();
             
             fileManager.ConfigurationTable.Count.Should().Be(3);
-            fileManager.ConfigurationTable[0].Row.Count.Should().Be(5);
-            fileManager.ConfigurationTable[1].Row.Count.Should().Be(5);
-            fileManager.ConfigurationTable[2].Row.Count.Should().Be(7);
+            fileManager.ConfigurationTable[0].Row.Count.Should().Be(3);
+            fileManager.ConfigurationTable[1].Row.Count.Should().Be(3);
+            fileManager.ConfigurationTable[2].Row.Count.Should().Be(4);
 
 
-            string c = "C-3-4";
-            var characterArray = c.ToCharArray();
+            string lineValue = "C-3-4";
+            var splitLine = lineValue.Split('-');
 
-            fileManager.ConfigurationTable[0].Row[0].Should().Be(characterArray[0]);
-            fileManager.ConfigurationTable[0].Row[1].Should().Be(characterArray[1]);
-            fileManager.ConfigurationTable[0].Row[2].Should().Be(characterArray[2]);
-            fileManager.ConfigurationTable[0].Row[3].Should().Be(characterArray[3]);
-            fileManager.ConfigurationTable[0].Row[4].Should().Be(characterArray[4]);
+            fileManager.ConfigurationTable[0].Row[0].Should().Be(splitLine[0]);
+            fileManager.ConfigurationTable[0].Row[1].Should().Be(splitLine[1]);
+            fileManager.ConfigurationTable[0].Row[2].Should().Be(splitLine[2]);
 
-            c = "M-1-1";
-            characterArray = c.ToCharArray();
+            lineValue = "M-1-1";
+            splitLine = lineValue.Split('-');
 
-            fileManager.ConfigurationTable[1].Row[0].Should().Be(characterArray[0]);
-            fileManager.ConfigurationTable[1].Row[1].Should().Be(characterArray[1]);
-            fileManager.ConfigurationTable[1].Row[2].Should().Be(characterArray[2]);
-            fileManager.ConfigurationTable[1].Row[3].Should().Be(characterArray[3]);
-            fileManager.ConfigurationTable[1].Row[4].Should().Be(characterArray[4]);
+            fileManager.ConfigurationTable[1].Row[0].Should().Be(splitLine[0]);
+            fileManager.ConfigurationTable[1].Row[1].Should().Be(splitLine[1]);
+            fileManager.ConfigurationTable[1].Row[2].Should().Be(splitLine[2]);
 
-            c = "C-3-2-2";
-            characterArray = c.ToCharArray();
+            lineValue = "C-3-2-2";
+            splitLine = lineValue.Split('-');
 
-            fileManager.ConfigurationTable[2].Row[0].Should().Be(characterArray[0]);
-            fileManager.ConfigurationTable[2].Row[1].Should().Be(characterArray[1]);
-            fileManager.ConfigurationTable[2].Row[2].Should().Be(characterArray[2]);
-            fileManager.ConfigurationTable[2].Row[3].Should().Be(characterArray[3]);
-            fileManager.ConfigurationTable[2].Row[4].Should().Be(characterArray[4]);
-            fileManager.ConfigurationTable[2].Row[5].Should().Be(characterArray[5]);
-            fileManager.ConfigurationTable[2].Row[6].Should().Be(characterArray[6]);
+            fileManager.ConfigurationTable[2].Row[0].Should().Be(splitLine[0]);
+            fileManager.ConfigurationTable[2].Row[1].Should().Be(splitLine[1]);
+            fileManager.ConfigurationTable[2].Row[2].Should().Be(splitLine[2]);
+            fileManager.ConfigurationTable[2].Row[3].Should().Be(splitLine[3]);
         }
 
         [TestMethod]
@@ -73,7 +69,7 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
             string c = "Test-Extraire-String";
             var characterArray = new List<char>(c.ToCharArray());
 
-            var result = FileManager.ExtraireString(characterArray);
+            var result = FileManager.ExtractString(characterArray);
 
             string[] value = { "Test", "Extraire", "String" };
 
@@ -85,10 +81,12 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
             result[2].Should().Be(value[2]);
         }
 
+
         [TestMethod]
+        [DeploymentItem("\\Sortie.txt")]
         public void FileWriteTest()
         {
-            var filePath = @"C:\Projects\CarteAuTresor\CarteAuTresorUnitTest\";
+            FileInfo fileInfo = new FileInfo("Sortie.txt");
 
             var listToWrite = new List<List<string>>();
             var line = new List<string>() { "C", "2", "3" };
@@ -97,7 +95,7 @@ namespace CarteAuTresorUnitTest.LibrairiesTest
             listToWrite.Add(line);
             listToWrite.Add(line2);
 
-            FileManager.FileTextWriter(listToWrite, filePath);
+            FileManager.FileTextWriter(listToWrite, fileInfo.DirectoryName);
         }
     }
 }

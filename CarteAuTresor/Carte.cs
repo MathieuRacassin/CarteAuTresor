@@ -112,11 +112,10 @@ namespace CarteAuTresor
             foreach (RowConfiguration rowConfiguration in configuration)
             {
                 // 0x41 vaut A
-                if (rowConfiguration.Row[0] == 0x41)
+                if (rowConfiguration.Row[0] == "A")
                 {
-                    var listeValeur = FileManager.ExtraireString(rowConfiguration.Row);
-                    Int32.TryParse(listeValeur[2], out valeurX);
-                    Int32.TryParse(listeValeur[3], out valeurY);
+                    Int32.TryParse(rowConfiguration.Row[2], out valeurX);
+                    Int32.TryParse(rowConfiguration.Row[3], out valeurY);
 
                     var position = new PositionAventurier()
                     {
@@ -124,7 +123,7 @@ namespace CarteAuTresor
                         Y = valeurY
                     };
 
-                    var aventurier = new Aventurier(position, listeValeur[1], listeValeur[4], listeValeur[5], 0, listeValeur[5].Length);
+                    var aventurier = new Aventurier(position, rowConfiguration.Row[1], rowConfiguration.Row[4], rowConfiguration.Row[5], 0, rowConfiguration.Row[5].Length);
                     this.CarteAuTresor[position.X, position.Y] = new PositionElement(aventurier);
                 }
             }
@@ -145,12 +144,11 @@ namespace CarteAuTresor
             foreach (RowConfiguration rowConfiguration in configuration)
             {
                 // 0x54 vaut T
-                if (rowConfiguration.Row[0] == 0x54)
+                if (rowConfiguration.Row[0] == "T")
                 {
-                    var listeValeur = FileManager.ExtraireString(rowConfiguration.Row);
-                    Int32.TryParse(listeValeur[1], out valeurX);
-                    Int32.TryParse(listeValeur[2], out valeurY);
-                    Int32.TryParse(listeValeur[3], out nombreTresor);
+                    Int32.TryParse(rowConfiguration.Row[1], out valeurX);
+                    Int32.TryParse(rowConfiguration.Row[2], out valeurY);
+                    Int32.TryParse(rowConfiguration.Row[3], out nombreTresor);
 
                     var position = new Position()
                     {
@@ -178,11 +176,10 @@ namespace CarteAuTresor
             foreach(RowConfiguration rowConfiguration in configuration)
             {
                 // 0x4d vaut M
-                if (rowConfiguration.Row[0] == 0x4d)
+                if (rowConfiguration.Row[0] == "M")
                 {
-                    var listeValeur = FileManager.ExtraireString(rowConfiguration.Row);
-                    Int32.TryParse(listeValeur[1], out valeurX);
-                    Int32.TryParse(listeValeur[2], out valeurY);
+                    Int32.TryParse(rowConfiguration.Row[1], out valeurX);
+                    Int32.TryParse(rowConfiguration.Row[2], out valeurY);
 
                     var position = new Position()
                     {
@@ -211,12 +208,10 @@ namespace CarteAuTresor
             foreach (RowConfiguration rowConfiguration in configuration)
             {
                 // 0x043 vaut C
-                if (rowConfiguration.Row[0] == 0x43)
+                if (rowConfiguration.Row[0] == "C")
                 {
-                    var listeValeur = FileManager.ExtraireString(rowConfiguration.Row);
-
-                    Int32.TryParse(listeValeur[1], out dimensionHorizontale);
-                    Int32.TryParse(listeValeur[2], out dimensionVerticale);
+                    Int32.TryParse(rowConfiguration.Row[1], out dimensionHorizontale);
+                    Int32.TryParse(rowConfiguration.Row[2], out dimensionVerticale);
                 }
             }
             return new Carte(dimensionVerticale, dimensionHorizontale);

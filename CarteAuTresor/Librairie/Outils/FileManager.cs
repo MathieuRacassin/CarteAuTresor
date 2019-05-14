@@ -21,7 +21,7 @@ namespace CarteAuTresor.Librairie
         /// <summary>
         /// Tableau de configuration
         /// </summary>
-        private List<RowConfiguration> configurationTable;
+        private List<RowConfiguration> configurationTable = new List<RowConfiguration>();
 
         /// <summary>
         /// Nombre de ligne dans le fichier texte
@@ -102,42 +102,66 @@ namespace CarteAuTresor.Librairie
             }
         }
 
-        /// <summary>
-        /// Permet de convertir le fichier texte en un tableau de <see cref="char"/>
-        /// <paramref name="rowFileCount"/> 
-        /// </summary>
-        /// <returns></returns>
         public List<RowConfiguration> FileReader()
         {
-            var nombreLigne = this.rowCount; 
-            this.configurationTable = new List<RowConfiguration>(nombreLigne - 1);
+            string[] fileRead = File.ReadAllLines(this.filePath.FullName);
+            List<string[]> vs = new List<string[]>();
 
-            using (Stream stream = new FileStream(this.filePath.FullName, FileMode.Open))
+            foreach(string line in fileRead)
             {
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                {
-                    for (int row = 0; row < nombreLigne; row++)
-                    {
-                        var charArray = reader.ReadLine().ToCharArray();
-
-                        var tempCharTab = new RowConfiguration();
-                        for (int column = 0; column < charArray.Count(); column++)
-                        {
-                            if(IsValid(charArray[column])==true)
-                            {
-                                tempCharTab.Row.Add(charArray[column]);
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        this.configurationTable.Add(tempCharTab);
-                    }
-                }
+                var split = line.Split('-');
+                vs.Add(split);
             }
+
+            foreach(var line  in vs)
+            {
+                var row = new RowConfiguration();
+                foreach(var l in line)
+                {
+                    row.Row.Add(l);
+                }
+                this.configurationTable.Add(row);
+            }
+
             return this.configurationTable;
         }
+
+        ///// <summary>
+        ///// Permet de convertir le fichier texte en un tableau de <see cref="char"/>
+        ///// <paramref name="rowFileCount"/> 
+        ///// </summary>
+        ///// <returns></returns>
+        //public List<RowConfiguration> FileReader2()
+        //{
+        //    var nombreLigne = this.rowCount; 
+        //    this.configurationTable = new List<RowConfiguration>(nombreLigne - 1);
+
+        //    using (Stream stream = new FileStream(this.filePath.FullName, FileMode.Open))
+        //    {
+        //        using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+        //        {
+        //            for (int row = 0; row < nombreLigne; row++)
+        //            {
+        //                var charArray = reader.ReadLine();
+
+        //                var tempCharTab = new RowConfiguration();
+        //                for (int column = 0; column < charArray.Count(); column++)
+        //                {
+        //                    if(IsValid(charArray[column])==true)
+        //                    {
+        //                        tempCharTab.Row.Add(charArray[column]);
+        //                    }
+        //                    else
+        //                    {
+        //                        continue;
+        //                    }
+        //                }
+        //                this.configurationTable.Add(tempCharTab);
+        //            }
+        //        }
+        //    }
+        //    return this.configurationTable;
+        //}
 
         /// <summary>
         /// Utilitaire permettant de reconstruire les informations extraite du fichier de configuration
@@ -145,7 +169,7 @@ namespace CarteAuTresor.Librairie
         /// </summary>
         /// <param name="charListe">Liste de caractère</param>
         /// <returns>Liste de chaîne de caractère</returns>
-        public static List<string> ExtraireString(List<char> charListe)
+        public static List<string> ExtractString(List<char> charListe)
         {
             var listeString = new List<string>();
 
@@ -161,7 +185,7 @@ namespace CarteAuTresor.Librairie
                 }
                 else
                 {
-                    temp = temp + caractere.ToString();
+                    temp += caractere.ToString();
                 }
             }
             listeString.Add(temp);
@@ -191,7 +215,6 @@ namespace CarteAuTresor.Librairie
                             {
                                 writer.Write("-");
                             }
-                            
                         }
                         writer.WriteLine(string.Empty);
                     }
