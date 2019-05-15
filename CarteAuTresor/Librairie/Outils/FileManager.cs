@@ -11,7 +11,7 @@ namespace CarteAuTresor.Librairie
     /// <summary>
     /// Gestionnaire de fichier 
     /// </summary>
-    public class FileManager : IFileReader
+    public class FileManager
     {
         /// <summary>
         /// Le chemin du fichier texte
@@ -21,7 +21,7 @@ namespace CarteAuTresor.Librairie
         /// <summary>
         /// Tableau de configuration
         /// </summary>
-        private readonly List<ElementCreator> configurationTable = new List<ElementCreator>();
+        private readonly List<ElementFactory> configurationTable = new List<ElementFactory>();
 
         public FileManager(string filePath)
         {
@@ -32,15 +32,12 @@ namespace CarteAuTresor.Librairie
         /// Tableau qui contient tous les caractères du fichier texte.
         /// Il permet la configuration de la chasse au trésor
         /// </summary>
-        public List<ElementCreator> ConfigurationTable
+        public List<ElementFactory> GetMapConfiguration()
         {
-            get
-            {
                 return this.configurationTable;
-            }
         }
 
-        public List<ElementCreator> FileReader()
+        public List<ElementFactory> FileReader()
         {
             string[] fileRead = File.ReadAllLines(this.filePath.FullName);
             List<string[]> vs = new List<string[]>();
@@ -53,10 +50,10 @@ namespace CarteAuTresor.Librairie
 
             foreach(var line  in vs)
             {
-                var row = new ElementCreator();
+                var row = new ElementFactory();
                 foreach(var l in line)
                 {
-                    row.AddElement(l);
+                    row.AddElement(l.Trim(' ', (char)(8203)));
                 }
                 this.configurationTable.Add(row);
             }

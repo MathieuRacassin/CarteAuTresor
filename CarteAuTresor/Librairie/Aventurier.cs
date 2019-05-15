@@ -93,7 +93,7 @@ namespace CarteAuTresor.Librairie
         /// <summary>
         /// Joue la séquence de mouvement
         /// </summary>
-        public void JouerSequence()
+        public void PlaySequence()
         {
             if (string.IsNullOrEmpty(this.sequence))
             {
@@ -133,7 +133,7 @@ namespace CarteAuTresor.Librairie
         /// 
         /// </summary>
         /// <param name="carte"></param>
-        public void JouerElement(Carte carte)
+        public void JouerElement(GameMap carte)
         {
             if (string.IsNullOrEmpty(this.sequence))
             {
@@ -166,19 +166,12 @@ namespace CarteAuTresor.Librairie
                         ChangeOrientation(mouvement);
                     }
 
-                    foreach( var element in carte.CarteAuTresor)
+                    if(carte.IsTresor(position))
                     {
-                        if(element.IsTresor)
-                        {
-                            if (
-                                element.Tresor.NombreTresor > 0 &&
-                                element.Tresor.HasSamePosition(this.position))
-                            {
-                                element.Tresor.LostOneTresor();
-                                WinOneTresor();
-                            }
-                        }
+                         carte.GetTresor(position).LostOneTresor();
+                         WinOneTresor();
                     }
+                    
                 }
 
                 
@@ -344,7 +337,26 @@ namespace CarteAuTresor.Librairie
 
         public override string TypeOf()
         {
-            throw new NotImplementedException();
+            return TypeOfElement.Aventurier;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("A");
+            builder.Append("-");
+            builder.Append(nom);
+            builder.Append("-");
+            builder.Append(position.X);
+            builder.Append("-");
+            builder.Append(position.Y);
+            builder.Append("-");
+            builder.Append(orientation);
+            builder.Append("-");
+            builder.Append(nombreTresor);
+
+            return builder.ToString();
         }
     }
 }

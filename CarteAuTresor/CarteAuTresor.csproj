@@ -48,12 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Carte.cs" />
+    <Compile Include="Aventuriers.cs" />
+    <Compile Include="GameMap.cs" />
     <Compile Include="Librairie\Aventurier.cs" />
-    <Compile Include="Librairie\Outils\IFileReader.cs" />
     <Compile Include="Librairie\Outils\PositionElement.cs" />
     <Compile Include="Librairie\Outils\Mouvement.cs" />
-    <Compile Include="Librairie\Outils\ElementCreator.cs" />
+    <Compile Include="Librairie\Outils\ElementFactory.cs" />
     <Compile Include="Librairie\Plaine.cs" />
     <Compile Include="Librairie\Element.cs" />
     <Compile Include="Librairie\Outils\FileManager.cs" />
@@ -62,6 +62,7 @@
     <Compile Include="Librairie\Tresor.cs" />
     <Compile Include="Librairie\Outils\Orientation.cs" />
     <Compile Include="Librairie\TypeOfElement.cs" />
+    <Compile Include="Printer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

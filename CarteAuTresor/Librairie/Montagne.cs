@@ -17,5 +17,17 @@ namespace CarteAuTresor.Librairie
         {
             return TypeOfElement.Montagne;
         }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(TypeOf());
+            builder.Append("-");
+            builder.Append(position.X);
+            builder.Append("-");
+            builder.Append(position.Y);
+            
+            return builder.ToString();
+        }
     }
 }

@@ -26,12 +26,26 @@ namespace CarteAuTresor.Librairie
 
         public override string TypeOf()
         {
-            throw new NotImplementedException();
+            return TypeOfElement.Tresor;
         }
 
         public void LostOneTresor()
         {
             this.nombreTresor--;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(TypeOf());
+            builder.Append("-");
+            builder.Append(position.X);
+            builder.Append("-");
+            builder.Append(position.Y);
+            builder.Append("-");
+            builder.Append(nombreTresor);
+
+            return builder.ToString();
         }
     }
 }

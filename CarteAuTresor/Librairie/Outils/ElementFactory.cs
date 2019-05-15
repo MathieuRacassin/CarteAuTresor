@@ -6,26 +6,17 @@ using System.Threading.Tasks;
 
 namespace CarteAuTresor.Librairie.Outils
 {
-    /// <summary>
-    /// Représente chaque ligne du ficher texte de configuration.
-    /// </summary>
-    public class ElementCreator
+    public class ElementFactory
     {
-        /// <summary>
-        /// Contient tous les caractères d'une ligne
-        /// </summary>
         private readonly List<string> row = new List<string>();
 
-        /// <summary>
-        /// Instancie une ligne de configuration
-        /// </summary>
-        public ElementCreator()
+        public ElementFactory()
         {
         }
 
         public string GetElementAt(int index)
         {
-            return row.ElementAt(index);
+            return row[index];
         }
 
         public void AddElement(string element)

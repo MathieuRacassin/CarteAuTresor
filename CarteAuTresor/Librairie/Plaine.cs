@@ -18,5 +18,10 @@ namespace CarteAuTresor.Librairie
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return string.Empty;
+        }
     }
 }
