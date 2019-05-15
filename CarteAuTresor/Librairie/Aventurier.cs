@@ -13,58 +13,25 @@ namespace CarteAuTresor.Librairie
     /// </summary>
     public class Aventurier : Element
     { 
-        /// <summary>
-        /// Le nom de l'avenutier
-        /// </summary>
         private string nom;
 
-        /// <summary>
-        /// La position de l'aventurier
-        /// </summary>
-        private PositionAventurier position;
-
-        /// <summary>
-        /// L'orientation de l'aventurier
-        /// </summary>
         private string orientation;
 
-        /// <summary>
-        /// Les mouvements de l'aventurier
-        /// </summary>
         private string sequence;
 
-        /// <summary>
-        /// Nombre de trésor ramassé par l'aventurier
-        /// </summary>
         private int nombreTresor;
 
-        /// <summary>
-        /// Nombre de tour restants à l'aventurier
-        /// </summary>
         private int nombreTour;
 
-        /// <summary>
-        /// Instancie l'<see cref="Aventurier"/>
-        /// </summary>
-        /// <param name="position">Position de l'aventurier sur la carte</param>
-        /// <param name="nom">Nom de l'aventurier</param>
-        /// <param name="orientation">Orientation de l'aventurier</param>
-        /// <param name="sequence">Sequence de mouvement de l'aventurier</param>
-        /// <param name="nombreTresor">Nombre de trésor ramassé</param>
-        /// <param name="nombreTour">Nombre de tour</param>
-        public Aventurier(PositionAventurier position, string nom, string orientation, string sequence, int nombreTresor, int nombreTour) : base(position)
+        public Aventurier(Position position,string nom, string orientation, string sequence, int nombreTresor, int nombreTour) : base(position)
         {
             this.nom = nom;
-            this.position = position;
             this.orientation = orientation;
             this.sequence = sequence;
             this.nombreTresor = nombreTresor;
             this.nombreTour = nombreTour;
         }
 
-        /// <summary>
-        /// Gets le nom de l'aventurier
-        /// </summary>
         public string Nom
         {
             get
@@ -73,24 +40,6 @@ namespace CarteAuTresor.Librairie
             }
         }
 
-        /// <summary>
-        /// Gets ou sets la position de l'aventurier
-        /// </summary>
-        public PositionAventurier Position
-        {
-            get
-            {
-                return this.position;
-            }
-            set
-            {
-                this.position = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets orientation de l'<see cref="Aventurier"/>
-        /// </summary>
         public string Orientation
         {
             get
@@ -129,9 +78,6 @@ namespace CarteAuTresor.Librairie
             }
         }
 
-        /// <summary>
-        /// Gets ou sets le nombre de tour restants à l'<see cref="Aventurier"/>
-        /// </summary>
         public int NombreTour
         {
             get
@@ -161,23 +107,23 @@ namespace CarteAuTresor.Librairie
                 {
                     if( mouvement == Char.Parse("A"))
                     {
-                        this.position.Avancer(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Avancer(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("G"))
                     {
-                        this.position.Gauche(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Gauche(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("D"))
                     {
-                        this.position.Droite(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Droite(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("R"))
                     {
-                        this.position.Reculer(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Reculer(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                 }
             }
@@ -201,30 +147,30 @@ namespace CarteAuTresor.Librairie
                 {
                     if (mouvement == Char.Parse("A"))
                     {
-                        this.position.Avancer(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Avancer(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("G"))
                     {
-                        this.position.Gauche(this.orientation);
+                        Gauche(this.orientation);
                         this.ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("D"))
                     {
-                        this.position.Droite(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Droite(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("R"))
                     {
-                        this.position.Reculer(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Reculer(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
 
                     foreach( var element in carte.CarteAuTresor)
                     {
                         if(element.IsTresor)
                         {
-                            if(
+                            if (
                                 element.Tresor.NombreTresor > 0 &&
                                 element.Tresor.HasSamePosition(this.position))
                             {
@@ -292,6 +238,102 @@ namespace CarteAuTresor.Librairie
                 {
                     this.orientation = Outils.Orientation.Nord;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Permet d'avancer
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier </param>
+        public void Avancer(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+            if (orientation == Outils.Orientation.Nord && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
+            }
+            if (orientation == Outils.Orientation.Sud && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+        }
+
+        /// <summary>
+        /// Permet de faire reculer l'aventurier
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier </param>
+        public void Reculer(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+            if (orientation == Outils.Orientation.Nord && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+            if (orientation == Outils.Orientation.Sud && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+        }
+
+        /// <summary>
+        /// Permet de déplacer vers la gauche l'aventurier
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier </param>
+        public void Gauche(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
+            }
+            if (orientation == Outils.Orientation.Nord && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+            if (orientation == Outils.Orientation.Sud && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+        }
+
+        /// <summary>
+        /// Permet de déplacer vers la droite l'aventurier
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier</param>
+        public void Droite(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est  && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+            if (orientation == Outils.Orientation.Nord && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+            if (orientation == Outils.Orientation.Sud && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
             }
         }
 

@@ -11,6 +11,12 @@ namespace CarteAuTresor.Librairie
     /// </summary>
     public class Position
     {
+        public Position(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
         public int X
         {
             get;
@@ -18,6 +24,24 @@ namespace CarteAuTresor.Librairie
         }
 
         public int Y
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Représente la borne maximum de l'axe horizontale
+        /// </summary>
+        public int Xmax
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Représente la borne maximum de l'axe verticale
+        /// </summary>
+        public int Ymax
         {
             get;
             set;

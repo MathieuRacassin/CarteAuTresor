@@ -53,28 +53,6 @@ namespace CarteAuTresor
         }
 
         /// <summary>
-        /// Gets la largeur de la carte
-        /// </summary>
-        public int AxeHorizontale
-        {
-            get
-            {
-                return this.axeHorizontale;
-            }
-        }
-
-        /// <summary>
-        /// Gets la hauteur de la carte
-        /// </summary>
-        public int AxeVerticale
-        {
-            get
-            {
-                return this.axeVerticale;
-            }
-        }
-
-        /// <summary>
         /// Crée une carte
         /// </summary>
         public void ConfigurerCarteAuTresor()
@@ -83,12 +61,8 @@ namespace CarteAuTresor
             {
                 for (int horizontale = 0; horizontale <= this.axeHorizontale - 1; horizontale++)
                 {
-                    var position = new Position()
-                    {
-                        X = horizontale,
-                        Y = verticale,
-                    };
-
+                    var position = new Position(horizontale, verticale);
+                    
                     this.CarteAuTresor[verticale, horizontale] = new PositionElement(position);
                 }
             }
@@ -101,25 +75,19 @@ namespace CarteAuTresor
         public void ConfigurerAventurier(FileManager fichierConfiguration)
         {
             var configuration = fichierConfiguration.ConfigurationTable;
-
-            int valeurX = 0;
-            int valeurY = 0;
-
-            foreach (RowConfiguration rowConfiguration in configuration)
+            foreach (ElementCreator rowConfiguration in configuration)
             {
                 // 0x41 vaut A
-                if (rowConfiguration.Row[0] == "A")
+                if (rowConfiguration.GetElementAt(0) == "A")
                 {
-                    Int32.TryParse(rowConfiguration.Row[2], out valeurX);
-                    Int32.TryParse(rowConfiguration.Row[3], out valeurY);
+                    int valeurX;
+                    Int32.TryParse(rowConfiguration.GetElementAt(2), out valeurX);
+                    int valeurY;
+                    Int32.TryParse(rowConfiguration.GetElementAt(3), out valeurY);
 
-                    var position = new PositionAventurier()
-                    {
-                        X = valeurX,
-                        Y = valeurY
-                    };
-
-                    var aventurier = new Aventurier(position, rowConfiguration.Row[1], rowConfiguration.Row[4], rowConfiguration.Row[5], 0, rowConfiguration.Row[5].Length);
+                    var position = new Position(valeurX, valeurY);
+                    
+                    var aventurier = new Aventurier(position, rowConfiguration.GetElementAt(1), rowConfiguration.GetElementAt(4), rowConfiguration.GetElementAt(5), 0, rowConfiguration.GetElementAt(5).Length);
                     this.CarteAuTresor[position.X, position.Y] = new PositionElement(aventurier);
                 }
             }
@@ -137,21 +105,17 @@ namespace CarteAuTresor
             int valeurY = 0;
             int nombreTresor = 0;
 
-            foreach (RowConfiguration rowConfiguration in configuration)
+            foreach (ElementCreator rowConfiguration in configuration)
             {
                 // 0x54 vaut T
-                if (rowConfiguration.Row[0] == "T")
+                if (rowConfiguration.GetElementAt(0) == "T")
                 {
-                    Int32.TryParse(rowConfiguration.Row[1], out valeurX);
-                    Int32.TryParse(rowConfiguration.Row[2], out valeurY);
-                    Int32.TryParse(rowConfiguration.Row[3], out nombreTresor);
+                    Int32.TryParse(rowConfiguration.GetElementAt(1), out valeurX);
+                    Int32.TryParse(rowConfiguration.GetElementAt(2), out valeurY);
+                    Int32.TryParse(rowConfiguration.GetElementAt(3), out nombreTresor);
 
-                    var position = new Position()
-                    {
-                        X = valeurX,
-                        Y = valeurY
-                    };
-
+                    var position = new Position(valeurX, valeurY);
+                    
                     var montagne = new Tresor(position,nombreTresor);
                     this.CarteAuTresor[position.X, position.Y] = new PositionElement(montagne);
                 }
@@ -169,20 +133,16 @@ namespace CarteAuTresor
             int valeurX = 0;
             int valeurY = 0;
 
-            foreach(RowConfiguration rowConfiguration in configuration)
+            foreach(ElementCreator rowConfiguration in configuration)
             {
                 // 0x4d vaut M
-                if (rowConfiguration.Row[0] == "M")
+                if (rowConfiguration.GetElementAt(0) == "M")
                 {
-                    Int32.TryParse(rowConfiguration.Row[1], out valeurX);
-                    Int32.TryParse(rowConfiguration.Row[2], out valeurY);
+                    Int32.TryParse(rowConfiguration.GetElementAt(1), out valeurX);
+                    Int32.TryParse(rowConfiguration.GetElementAt(2), out valeurY);
 
-                    var position = new Position()
-                    {
-                        X = valeurX,
-                        Y = valeurY
-                    };
-
+                    var position = new Position(valeurX, valeurY);
+                    
                     var montagne = new Montagne(position);
                     this.CarteAuTresor[position.X, position.Y] = new PositionElement(montagne);
                 }
@@ -201,13 +161,13 @@ namespace CarteAuTresor
             int dimensionHorizontale = 0;
             int dimensionVerticale = 0;
 
-            foreach (RowConfiguration rowConfiguration in configuration)
+            foreach (ElementCreator rowConfiguration in configuration)
             {
                 // 0x043 vaut C
-                if (rowConfiguration.Row[0] == "C")
+                if (rowConfiguration.GetElementAt(0) == "C")
                 {
-                    Int32.TryParse(rowConfiguration.Row[1], out dimensionHorizontale);
-                    Int32.TryParse(rowConfiguration.Row[2], out dimensionVerticale);
+                    Int32.TryParse(rowConfiguration.GetElementAt(1), out dimensionHorizontale);
+                    Int32.TryParse(rowConfiguration.GetElementAt(2), out dimensionVerticale);
                 }
             }
             return new Carte(dimensionVerticale, dimensionHorizontale);

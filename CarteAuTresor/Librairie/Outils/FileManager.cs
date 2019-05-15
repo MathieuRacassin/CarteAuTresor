@@ -11,7 +11,7 @@ namespace CarteAuTresor.Librairie
     /// <summary>
     /// Gestionnaire de fichier 
     /// </summary>
-    public class FileManager
+    public class FileManager : IFileReader
     {
         /// <summary>
         /// Le chemin du fichier texte
@@ -21,76 +21,31 @@ namespace CarteAuTresor.Librairie
         /// <summary>
         /// Tableau de configuration
         /// </summary>
-        private List<RowConfiguration> configurationTable = new List<RowConfiguration>();
-
-        /// <summary>
-        /// Nombre de ligne dans le fichier texte
-        /// </summary>
-        private int rowCount;
-
+        private readonly List<ElementCreator> configurationTable = new List<ElementCreator>();
 
         public FileManager(string filePath)
         {
             this.filePath = new FileInfo(filePath);
-
-            this.rowCount = 0;
-        }
-
-        /// <summary>
-        /// Gets or sets le chemin
-        /// </summary>
-        public FileInfo FilePath
-        {
-            get
-            {
-                if(this.filePath.Exists == true)
-                {
-                    return this.filePath;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int RowCount
-        {
-            get
-            {
-                return this.rowCount;
-            }
         }
 
         /// <summary>
         /// Tableau qui contient tous les caractères du fichier texte.
         /// Il permet la configuration de la chasse au trésor
         /// </summary>
-        public List<RowConfiguration> ConfigurationTable
+        public List<ElementCreator> ConfigurationTable
         {
             get
             {
-                if(this.configurationTable == null)
-                {
-                    this.configurationTable = new List<RowConfiguration>();
-                    return this.configurationTable;
-                }
-                else
-                {
-                    return this.configurationTable;
-                }
+                return this.configurationTable;
             }
         }
 
-        public List<RowConfiguration> FileReader()
+        public List<ElementCreator> FileReader()
         {
             string[] fileRead = File.ReadAllLines(this.filePath.FullName);
             List<string[]> vs = new List<string[]>();
 
-            foreach(string line in fileRead)
+            foreach (string line in fileRead)
             {
                 var split = line.Split('-');
                 vs.Add(split);
@@ -98,10 +53,10 @@ namespace CarteAuTresor.Librairie
 
             foreach(var line  in vs)
             {
-                var row = new RowConfiguration();
+                var row = new ElementCreator();
                 foreach(var l in line)
                 {
-                    row.Row.Add(l);
+                    row.AddElement(l);
                 }
                 this.configurationTable.Add(row);
             }
@@ -172,26 +127,6 @@ namespace CarteAuTresor.Librairie
                         writer.WriteLine(string.Empty);
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Vérifie la validitié du caractère en cours de lecture
-        /// Exclue plusieurs caractères
-        /// </summary>
-        /// <param name="character"></param>
-        /// <returns>True si le caractère est valide</returns>
-        private static bool IsValid(char character)
-        {
-            if (character >= 0x41 && character <= 0x5a || character >= 0x30 && character <= 0x39 ||
-                character >= 0x61 && character <= 0x7a || character == 0x2d)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
             }
         }
     }

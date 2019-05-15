@@ -50,10 +50,10 @@
   <ItemGroup>
     <Compile Include="Carte.cs" />
     <Compile Include="Librairie\Aventurier.cs" />
+    <Compile Include="Librairie\Outils\IFileReader.cs" />
     <Compile Include="Librairie\Outils\PositionElement.cs" />
     <Compile Include="Librairie\Outils\Mouvement.cs" />
-    <Compile Include="Librairie\Outils\PositionAventurier.cs" />
-    <Compile Include="Librairie\Outils\RowConfiguration.cs" />
+    <Compile Include="Librairie\Outils\ElementCreator.cs" />
     <Compile Include="Librairie\Plaine.cs" />
     <Compile Include="Librairie\Element.cs" />
     <Compile Include="Librairie\Outils\FileManager.cs" />

@@ -58,10 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LibrairiesTest\OutilsTest\FileManagerTest.cs" />
-    <Compile Include="LibrairiesTest\OutilsTest\PositionElementTest.cs" />
-    <Compile Include="LibrairiesTest\OutilsTest\RowConfigurationTest.cs" />
     <Compile Include="LibrairiesTest\OutilsTest\PositionTest.cs" />
-    <Compile Include="LibrairiesTest\OutilsTest\PositionAventurierTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CarteTest.cs" />
   </ItemGroup>

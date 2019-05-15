@@ -9,7 +9,7 @@ namespace CarteAuTresor.Librairie.Outils
     /// <summary>
     /// Représente chaque ligne du ficher texte de configuration.
     /// </summary>
-    public class RowConfiguration
+    public class ElementCreator
     {
         /// <summary>
         /// Contient tous les caractères d'une ligne
@@ -19,19 +19,18 @@ namespace CarteAuTresor.Librairie.Outils
         /// <summary>
         /// Instancie une ligne de configuration
         /// </summary>
-        public RowConfiguration()
+        public ElementCreator()
         {
         }
 
-        /// <summary>
-        /// Gets la ligne de configuration
-        /// </summary>
-        public List<string> Row
+        public string GetElementAt(int index)
         {
-            get
-            {
-                return this.row;
-            }
+            return row.ElementAt(index);
+        }
+
+        public void AddElement(string element)
+        {
+            row.Add(element);
         }
     }
 }

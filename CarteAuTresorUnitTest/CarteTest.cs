@@ -41,8 +41,6 @@ namespace CarteAuTresorUnitTest
 
             var carte = Carte.CreerCarteAuTresor(fileManager);
 
-            carte.AxeHorizontale.Should().Be(10);
-            carte.AxeVerticale.Should().Be(10);
             carte.CarteAuTresor.Should().NotBeNull();
             carte.CarteAuTresor.Length.Should().Be(100);
         }
