@@ -8,146 +8,28 @@ using CarteAuTresor.Librairie.Outils;
 
 namespace CarteAuTresor.Librairie
 {
-    /// <summary>
-    /// Représente un aventurier
-    /// </summary>
-    public class Aventurier
+    public class Aventurier : Element
     { 
-        /// <summary>
-        /// Le nom de l'avenutier
-        /// </summary>
         private string nom;
 
-        /// <summary>
-        /// La position de l'aventurier
-        /// </summary>
-        private PositionAventurier position;
-
-        /// <summary>
-        /// L'orientation de l'aventurier
-        /// </summary>
         private string orientation;
 
-        /// <summary>
-        /// Les mouvements de l'aventurier
-        /// </summary>
         private string sequence;
 
-        /// <summary>
-        /// Nombre de trésor ramassé par l'aventurier
-        /// </summary>
         private int nombreTresor;
 
-        /// <summary>
-        /// Nombre de tour restants à l'aventurier
-        /// </summary>
         private int nombreTour;
 
-        /// <summary>
-        /// Instancie l'<see cref="Aventurier"/>
-        /// </summary>
-        /// <param name="position">Position de l'aventurier sur la carte</param>
-        /// <param name="nom">Nom de l'aventurier</param>
-        /// <param name="orientation">Orientation de l'aventurier</param>
-        /// <param name="sequence">Sequence de mouvement de l'aventurier</param>
-        /// <param name="nombreTresor">Nombre de trésor ramassé</param>
-        /// <param name="nombreTour">Nombre de tour</param>
-        public Aventurier(PositionAventurier position, string nom, string orientation, string sequence, int nombreTresor, int nombreTour)
+        public Aventurier(Position position,string nom, string orientation, string sequence, int nombreTresor, int nombreTour) : base(position)
         {
             this.nom = nom;
-            this.position = position;
             this.orientation = orientation;
             this.sequence = sequence;
             this.nombreTresor = nombreTresor;
             this.nombreTour = nombreTour;
         }
 
-        /// <summary>
-        /// Gets le nom de l'aventurier
-        /// </summary>
-        public string Nom
-        {
-            get
-            {
-                return this.nom;
-            }
-        }
-
-        /// <summary>
-        /// Gets ou sets la position de l'aventurier
-        /// </summary>
-        public PositionAventurier Position
-        {
-            get
-            {
-                return this.position;
-            }
-            set
-            {
-                this.position = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets orientation de l'<see cref="Aventurier"/>
-        /// </summary>
-        public string Orientation
-        {
-            get
-            {
-                return this.orientation;
-            }
-            set
-            {
-                this.orientation = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets Sequence de mouvement de l'<see cref="Aventurier"/>
-        /// </summary>
-        public string Sequence
-        {
-            get
-            {
-                return this.sequence;
-            }
-        }
-
-        /// <summary>
-        /// Gets ou sets le nombre de trésor ramassé par l'<see cref="Aventurier"/>
-        /// </summary>
-        public int NombreTresor
-        {
-            get
-            {
-                return this.nombreTresor;
-            }
-            set
-            {
-                this.nombreTresor = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets ou sets le nombre de tour restants à l'<see cref="Aventurier"/>
-        /// </summary>
-        public int NombreTour
-        {
-            get
-            {
-                return this.nombreTour;
-            }
-            set
-            {
-                this.nombreTour = value;
-            }
-        }
-
-        /// <summary>
-        /// Joue la séquence de mouvement
-        /// </summary>
-        public void JouerSequence()
+        public void PlaySequence(GameMap map)
         {
             if (string.IsNullOrEmpty(this.sequence))
             {
@@ -155,90 +37,42 @@ namespace CarteAuTresor.Librairie
             }
             else
             {
-                var listeSequence = new List<char>(this.sequence.ToArray());
+                var listeSequence = new List<char>(sequence.ToArray());
 
                 foreach( var mouvement in listeSequence)
                 {
+
                     if( mouvement == Char.Parse("A"))
                     {
-                        this.position.Avancer(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Avancer(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("G"))
                     {
-                        this.position.Gauche(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Gauche(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("D"))
                     {
-                        this.position.Droite(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Droite(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
                     if (mouvement == Char.Parse("R"))
                     {
-                        this.position.Reculer(this.orientation);
-                        this.ChangeOrientation(mouvement);
+                        Reculer(this.orientation);
+                        ChangeOrientation(mouvement);
                     }
+
+                    if (map.IsTresor(position))
+                    {
+                        var tresor = (Tresor)map.GetElementAt(position);
+                        tresor.LostOneTresor();
+
+                        WinOneTresor();
+                    }
+
                 }
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="carte"></param>
-        public void JouerElement(Carte carte)
-        {
-            if (string.IsNullOrEmpty(this.sequence))
-            {
-                throw new Exception("Votre séquence est vide");
-            }
-            else
-            {
-                var listeSequence = new List<char>(this.sequence.ToArray());
-
-                foreach (var mouvement in listeSequence)
-                {
-                    if (mouvement == Char.Parse("A"))
-                    {
-                        this.position.Avancer(this.orientation);
-                        this.ChangeOrientation(mouvement);
-                    }
-                    if (mouvement == Char.Parse("G"))
-                    {
-                        this.position.Gauche(this.orientation);
-                        this.ChangeOrientation(mouvement);
-                    }
-                    if (mouvement == Char.Parse("D"))
-                    {
-                        this.position.Droite(this.orientation);
-                        this.ChangeOrientation(mouvement);
-                    }
-                    if (mouvement == Char.Parse("R"))
-                    {
-                        this.position.Reculer(this.orientation);
-                        this.ChangeOrientation(mouvement);
-                    }
-
-                    foreach( var element in carte.CarteAuTresor)
-                    {
-                        if(element.IsTresor)
-                        {
-                            if(
-                                element.Tresor.NombreTresor > 0 &&
-                                element.Tresor.Position.X == this.Position.X && 
-                                element.Tresor.Position.Y ==this.Position.Y)
-                            {
-                                element.Tresor.NombreTresor--;
-                                this.NombreTresor++;
-                            }
-                        }
-                    }
-                }
-
-                
-            }
-
         }
 
         /// <summary>
@@ -296,5 +130,129 @@ namespace CarteAuTresor.Librairie
             }
         }
 
+        /// <summary>
+        /// Permet d'avancer
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier </param>
+        public void Avancer(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+            if (orientation == Outils.Orientation.Nord && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
+            }
+            if (orientation == Outils.Orientation.Sud && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+        }
+
+        /// <summary>
+        /// Permet de faire reculer l'aventurier
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier </param>
+        public void Reculer(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+            if (orientation == Outils.Orientation.Nord && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+            if (orientation == Outils.Orientation.Sud && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+        }
+
+        /// <summary>
+        /// Permet de déplacer vers la gauche l'aventurier
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier </param>
+        public void Gauche(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
+            }
+            if (orientation == Outils.Orientation.Nord && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+            if (orientation == Outils.Orientation.Sud && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+        }
+
+        /// <summary>
+        /// Permet de déplacer vers la droite l'aventurier
+        /// </summary>
+        /// <param name="orientation">Orientation de l'aventurier</param>
+        public void Droite(string orientation)
+        {
+            if (orientation == Outils.Orientation.Est  && position.Ymax >= position.Y + 1)
+            {
+                position.Y += 1;
+            }
+            if (orientation == Outils.Orientation.Nord && position.Xmax >= position.X + 1)
+            {
+                position.X += 1;
+            }
+            if (orientation == Outils.Orientation.Sud && 0 <= position.X - 1)
+            {
+                position.X -= 1;
+            }
+            if (orientation == Outils.Orientation.Ouest && 0 <= position.Y - 1)
+            {
+                position.Y -= 1;
+            }
+        }
+
+        public void WinOneTresor()
+        {
+            this.nombreTresor++;
+        }
+
+        public override string TypeOf()
+        {
+            return TypeOfElement.Aventurier;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("A");
+            builder.Append("-");
+            builder.Append(nom);
+            builder.Append("-");
+            builder.Append(position.X);
+            builder.Append("-");
+            builder.Append(position.Y);
+            builder.Append("-");
+            builder.Append(orientation);
+            builder.Append("-");
+            builder.Append(nombreTresor);
+
+            return builder.ToString();
+        }
     }
 }

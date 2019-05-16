@@ -6,35 +6,20 @@ using System.Threading.Tasks;
 
 namespace CarteAuTresor.Librairie
 {
-    public class Element
+    public abstract class Element
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private Position position;
+        protected readonly Position position;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
         public Element(Position position)
         {
             this.position = position;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Position Position
+        
+        public bool HasSamePosition(Position position)
         {
-            get
-            {
-                return this.position;
-            }
-            set
-            {
-                this.position = value;
-            }
+            return this.position.Equals(position);
         }
+
+        public abstract string TypeOf();
     }
 }

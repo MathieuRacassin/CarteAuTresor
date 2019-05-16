@@ -57,16 +57,6 @@ namespace CarteAuTresor.Librairie.Outils
         }
 
         /// <summary>
-        /// Instancie la position d'une plaine
-        /// </summary>
-        /// <param name="plaine">Une plaine</param>
-        private PositionElement(Plaine plaine)
-        {
-            this.plaine = plaine;
-            this.isPlaine = true;
-        }
-
-        /// <summary>
         /// Instancie la postion d'une montagne
         /// </summary>
         /// <param name="montagne">Une montagne</param>

@@ -11,31 +11,54 @@ namespace CarteAuTresor.Librairie
     /// </summary>
     public class Position
     {
-        /// <summary>
-        /// Instancie la position
-        /// </summary>
-        /// <param name="xmax">Valeure maximum </param>
-        /// <param name="ymax"></param>
-        public Position()
+        public Position(int x, int y)
         {
+            X = x;
+            Y = y;
         }
 
-        /// <summary>
-        /// Gets ou sets la valeur de x
-        /// </summary>
         public int X
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Gets ou sets la valeur de y
-        /// </summary>
         public int Y
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// Représente la borne maximum de l'axe horizontale
+        /// </summary>
+        public int Xmax
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Représente la borne maximum de l'axe verticale
+        /// </summary>
+        public int Ymax
+        {
+            get;
+            set;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Position position = obj as Position;
+
+            return position.X == this.X && position.Y == this.Y;
+        }
     }
+
+
 }

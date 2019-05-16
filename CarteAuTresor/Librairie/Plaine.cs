@@ -13,5 +13,15 @@ namespace CarteAuTresor.Librairie
         {
 
         }
+
+        public override string TypeOf()
+        {
+            return TypeOfElement.Plaine;
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
+        }
     }
 }

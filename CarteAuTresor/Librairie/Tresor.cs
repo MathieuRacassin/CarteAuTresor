@@ -6,40 +6,43 @@ using System.Threading.Tasks;
 
 namespace CarteAuTresor.Librairie
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class Tresor : Element
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private int nombreTresor;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="nombreTresor"></param>
         public Tresor(Position position, int nombreTresor)
             :base(position)
         {
             this.nombreTresor = nombreTresor;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int NombreTresor
+        public override string TypeOf()
         {
-            get
-            {
-                return this.nombreTresor;
-            }
-            set
-            {
-                this.nombreTresor = value;
-            }
+            return TypeOfElement.Tresor;
+        }
+
+        public void LostOneTresor()
+        {
+            this.nombreTresor--;
+        }
+
+        public bool HasTresor()
+        {
+            return nombreTresor > 0;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(TypeOf());
+            builder.Append("-");
+            builder.Append(position.X);
+            builder.Append("-");
+            builder.Append(position.Y);
+            builder.Append("-");
+            builder.Append(nombreTresor);
+
+            return builder.ToString();
         }
     }
 }

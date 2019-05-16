@@ -11,9 +11,9 @@ namespace CarteAuTresor.Librairie.Outils
     /// </summary>
     public static class Mouvement
     {
-        public const char Avancer = (char)41;
-        public const char Gauche = (char)47;
-        public const char Droit = (char)44;
-        public const char Reculer = (char)52;
+        public const char Avancer = 'A';
+        public const char Gauche = 'G';
+        public const char Droit = 'D';
+        public const char Reculer = 'R';
     }
 }

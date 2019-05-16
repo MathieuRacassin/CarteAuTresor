@@ -11,12 +11,8 @@ namespace CarteAuTresorUnitTest.LibrairiesTest.OutilsTest
         [TestMethod]
         public void PositionClassTest()
         {
-            var position = new Position()
-            {
-                X = 1,
-                Y = 2
-            };
-
+            var position = new Position(1, 2);
+            
             position.X.Should().Be(1);
             position.Y.Should().Be(2);
 

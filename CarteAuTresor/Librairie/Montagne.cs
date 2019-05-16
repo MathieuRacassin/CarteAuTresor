@@ -12,5 +12,22 @@ namespace CarteAuTresor.Librairie
             :base(position)
         {
         }
+
+        public override string TypeOf()
+        {
+            return TypeOfElement.Montagne;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(TypeOf());
+            builder.Append("-");
+            builder.Append(position.X);
+            builder.Append("-");
+            builder.Append(position.Y);
+            
+            return builder.ToString();
+        }
     }
 }
