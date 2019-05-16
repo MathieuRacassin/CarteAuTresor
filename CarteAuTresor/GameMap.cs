@@ -1,4 +1,5 @@
-﻿using CarteAuTresor.Librairie;
+﻿
+using CarteAuTresor.Librairie;
 using CarteAuTresor.Librairie.Outils;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace CarteAuTresor
             HorizontalLength = horizontalLength;
             VerticalLength = verticalLength;
 
-            map = new Element[horizontalLength, verticalLength];
+            map = new Element[verticalLength, horizontalLength];
         }
 
         public int HorizontalLength { get; }
@@ -36,14 +37,12 @@ namespace CarteAuTresor
             {
                 for (int horizontale = 0; horizontale <= this.HorizontalLength - 1; horizontale++)
                 {
-                    var position = new Position(horizontale, verticale);
+                    var position = new Position(verticale, horizontale);
 
                     this.map[verticale, horizontale] = new Plaine(position);
                 }
             }
         }
-
-
 
         public void InitializeElement(FileManager configurationFile)
         {
@@ -82,13 +81,16 @@ namespace CarteAuTresor
 
                 var position = new Position(valeurX, valeurY);
 
-                this.map[position.X, position.Y] = new Tresor(position, nombreTresor);
+                if(nombreTresor>0)
+                {
+                    this.map[position.Y, position.X] = new Tresor(position, nombreTresor);
+                }
             }
         }
 
-        private Element GetElementAt(Position position)
+        public Element GetElementAt(Position position)
         {
-            return map[position.X, position.Y];
+            return map[position.Y, position.X];
         }
 
         private void InitializeMontagne(ElementFactory element)
@@ -100,7 +102,7 @@ namespace CarteAuTresor
 
                 var position = new Position(valeurX, valeurY);
 
-                this.map[position.X, position.Y] = new Montagne(position);
+                this.map[position.Y, position.X] = new Montagne(position);
             }
         }
 
@@ -147,20 +149,14 @@ namespace CarteAuTresor
             {
                 if (element.TypeOf() == TypeOfElement.Tresor)
                 {
-                    builder.AppendLine(element.ToString());
+                    if(((Tresor)element).HasTresor())
+                    {
+                        builder.AppendLine(element.ToString());
+                    }
                 }
             }
 
-            return builder.ToString();
-        }
-
-        public Tresor GetTresor(Position position)
-        {
-            if(IsTresor(position))
-            {
-                return (Tresor)GetElementAt(position);
-            }
-            return new Tresor(position, 0);
+            return builder.ToString().TrimEnd();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CarteAuTresor
             builder.AppendLine(map.ToString());
             builder.AppendLine(map.Aventuriers.ToString());
 
-            return builder.ToString();
+            return builder.ToString().TrimEnd();
         }
     }
 }

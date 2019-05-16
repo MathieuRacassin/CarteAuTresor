@@ -16,14 +16,6 @@ namespace CarteAuTresor.Librairie
             this.nombreTresor = nombreTresor;
         }
 
-        public int NombreTresor
-        {
-            get
-            {
-                return this.nombreTresor;
-            }
-        }
-
         public override string TypeOf()
         {
             return TypeOfElement.Tresor;
@@ -32,6 +24,11 @@ namespace CarteAuTresor.Librairie
         public void LostOneTresor()
         {
             this.nombreTresor--;
+        }
+
+        public bool HasTresor()
+        {
+            return nombreTresor > 0;
         }
 
         public override string ToString()

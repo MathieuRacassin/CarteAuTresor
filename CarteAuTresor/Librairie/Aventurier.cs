@@ -8,9 +8,6 @@ using CarteAuTresor.Librairie.Outils;
 
 namespace CarteAuTresor.Librairie
 {
-    /// <summary>
-    /// Représente un aventurier
-    /// </summary>
     public class Aventurier : Element
     { 
         private string nom;
@@ -32,68 +29,7 @@ namespace CarteAuTresor.Librairie
             this.nombreTour = nombreTour;
         }
 
-        public string Nom
-        {
-            get
-            {
-                return this.nom;
-            }
-        }
-
-        public string Orientation
-        {
-            get
-            {
-                return this.orientation;
-            }
-            set
-            {
-                this.orientation = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets Sequence de mouvement de l'<see cref="Aventurier"/>
-        /// </summary>
-        public string Sequence
-        {
-            get
-            {
-                return this.sequence;
-            }
-        }
-
-        /// <summary>
-        /// Gets ou sets le nombre de trésor ramassé par l'<see cref="Aventurier"/>
-        /// </summary>
-        public int NombreTresor
-        {
-            get
-            {
-                return this.nombreTresor;
-            }
-            set
-            {
-                this.nombreTresor = value;
-            }
-        }
-
-        public int NombreTour
-        {
-            get
-            {
-                return this.nombreTour;
-            }
-            set
-            {
-                this.nombreTour = value;
-            }
-        }
-
-        /// <summary>
-        /// Joue la séquence de mouvement
-        /// </summary>
-        public void PlaySequence()
+        public void PlaySequence(GameMap map)
         {
             if (string.IsNullOrEmpty(this.sequence))
             {
@@ -101,10 +37,11 @@ namespace CarteAuTresor.Librairie
             }
             else
             {
-                var listeSequence = new List<char>(this.sequence.ToArray());
+                var listeSequence = new List<char>(sequence.ToArray());
 
                 foreach( var mouvement in listeSequence)
                 {
+
                     if( mouvement == Char.Parse("A"))
                     {
                         Avancer(this.orientation);
@@ -125,58 +62,17 @@ namespace CarteAuTresor.Librairie
                         Reculer(this.orientation);
                         ChangeOrientation(mouvement);
                     }
+
+                    if (map.IsTresor(position))
+                    {
+                        var tresor = (Tresor)map.GetElementAt(position);
+                        tresor.LostOneTresor();
+
+                        WinOneTresor();
+                    }
+
                 }
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="carte"></param>
-        public void JouerElement(GameMap carte)
-        {
-            if (string.IsNullOrEmpty(this.sequence))
-            {
-                throw new Exception("Votre séquence est vide");
-            }
-            else
-            {
-                var listeSequence = new List<char>(this.sequence.ToArray());
-
-                foreach (var mouvement in listeSequence)
-                {
-                    if (mouvement == Char.Parse("A"))
-                    {
-                        Avancer(this.orientation);
-                        ChangeOrientation(mouvement);
-                    }
-                    if (mouvement == Char.Parse("G"))
-                    {
-                        Gauche(this.orientation);
-                        this.ChangeOrientation(mouvement);
-                    }
-                    if (mouvement == Char.Parse("D"))
-                    {
-                        Droite(this.orientation);
-                        ChangeOrientation(mouvement);
-                    }
-                    if (mouvement == Char.Parse("R"))
-                    {
-                        Reculer(this.orientation);
-                        ChangeOrientation(mouvement);
-                    }
-
-                    if(carte.IsTresor(position))
-                    {
-                         carte.GetTresor(position).LostOneTresor();
-                         WinOneTresor();
-                    }
-                    
-                }
-
-                
-            }
-
         }
 
         /// <summary>
@@ -332,7 +228,7 @@ namespace CarteAuTresor.Librairie
 
         public void WinOneTresor()
         {
-            this.nombreTour++;
+            this.nombreTresor++;
         }
 
         public override string TypeOf()

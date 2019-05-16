@@ -19,11 +19,11 @@ namespace CarteAuTresor
             throw new NotImplementedException();
         }
 
-        public void PlaySequences()
+        public void PlaySequences(GameMap map)
         {
             foreach(Aventurier aventurier in aventuriers)
             {
-                aventurier.PlaySequence();
+                aventurier.PlaySequence(map);
             }
         }
 

@@ -16,7 +16,7 @@ namespace CarteAuTresor.Librairie
 
         public override string TypeOf()
         {
-            throw new NotImplementedException();
+            return TypeOfElement.Plaine;
         }
 
         public override string ToString()

@@ -22,10 +22,9 @@ namespace CarteAuTresorUnitTest
             var game = GameMap.Create(fileManager);
 
             game.InitializeElement(fileManager);
-            game.Aventuriers.PlaySequences();
+            game.Aventuriers.PlaySequences(game);
 
             Printer printer = new Printer(game);
-
 
             var expected = File.ReadAllText("Output.txt");
 
